@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AkaceMed — Chronic Care, Delivered</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 48px 20px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.06;
+  }
+  .hero h1 em { font-style: italic; color: var(--brand); }
+  .hero-sub {
+    margin-top: 18px;
+    color: var(--gray);
+    font-size: 1.05rem;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 30px; margin-top: 40px; flex-wrap: wrap; }
+  .stat-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; display: block; color: var(--brand-dark); }
+  .stat-label { font-size: 0.75rem; color: var(--gray); }
+
+  .hero-visual {
+    background: var(--card);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  .hero-visual-inner {
+    background: var(--brand-dark);
+    border-radius: 20px;
+    padding: 34px 26px;
+    color: #fff;
+  }
+  .hero-visual-inner .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .hero-visual-inner h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin: 10px 0 8px;
+  }
+  .hero-visual-inner p {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 18px;
+  }
+  .refill-cycle {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 10px;
+  }
+  .refill-dot {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+  }
+  .refill-line { flex: 1; height: 2px; background: rgba(255,255,255,0.18); }
+
+  .categories-section {
+    max-width: 1200px;
+    margin: 70px auto 0;
+    padding: 0 48px;
+  }
+  .section-head { margin-bottom: 30px; }
+  .section-head .eyebrow {
+    font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: 1.9rem; font-weight: 800;
+  }
+  .cat-tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  .cat-tile {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cat-tile:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+  .cat-tile-icon {
+    width: 60px; height: 60px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem; margin: 0 auto 14px;
+  }
+  .cat-tile h4 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .cat-tile p { font-size: 0.75rem; color: var(--gray); }
+
+  .benefits {
+    max-width: 1200px;
+    margin: 70px auto 0;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .benefit { text-align: left; }
+  .benefit-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+  .benefit h4 { font-family: var(--font-display); font-size: 1rem; margin-bottom: 6px; }
+  .benefit p { font-size: 0.84rem; color: var(--gray); }
+
+  .cta-banner {
+    max-width: 1200px;
+    margin: 70px auto 0;
+    background: linear-gradient(120deg, var(--brand-dark), var(--brand));
+    border-radius: 28px;
+    padding: 48px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .cta-banner h2 { font-family: var(--font-display); font-size: 1.7rem; margin-bottom: 8px; }
+  .cta-banner p { color: rgba(255,255,255,0.8); max-width: 460px; font-size: 0.92rem; }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 40px 20px 10px; }
+    .categories-section, .benefits, .cta-banner { padding-left: 20px; padding-right: 20px; margin-left: 12px; margin-right: 12px; }
+    .cat-tiles { grid-template-columns: repeat(2, 1fr); }
+    .benefits { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="home.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link active">Home</a>
+    <a href="medicines.html" class="nav-link">Medicines</a>
+    <a href="supplements.html" class="nav-link">Supplements</a>
+    <a href="skincare.html" class="nav-link">Skincare</a>
+    <a href="haircare.html" class="nav-link">Hair Care</a>
+    <a href="baby.html" class="nav-link">Baby & Mother</a>
+    <a href="mens.html" class="nav-link">Men's Health</a>
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge" style="display:none">0</span></div>
+    <a href="login.html" class="nav-link" id="authLink">Sign in</a>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout →</button>
+    <p class="cart-foot-note">Secure payment via Paystack</p>
+  </div>
+</div>
+
+<section class="hero">
+  <div>
+    <div class="hero-badge">🩺 Built for people managing long-term conditions</div>
+    <h1>Chronic care that <em>keeps showing up</em>, so you don't have to think about it.</h1>
+    <p class="hero-sub">AkaceMed delivers your supplements, skincare, and everyday health essentials across Nigeria — with auto-refill so you never run out of what keeps you well.</p>
+    <div class="hero-actions">
+      <a href="supplements.html" class="btn btn-brand btn-lg">Shop Products →</a>
+      <a href="login.html" class="btn btn-outline btn-lg">Create Account</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">100%</span><span class="stat-label">Genuine Products</span></div>
+      <div><span class="stat-num">24hr</span><span class="stat-label">Delivery</span></div>
+      <div><span class="stat-num">5</span><span class="stat-label">Care Categories</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-inner">
+      <div class="tag">Auto-Refill</div>
+      <h3>One order, every month.</h3>
+      <p>Set your routine once. We handle reminders, restocking, and delivery — so managing a chronic condition takes one less decision each day.</p>
+      <div class="refill-cycle">
+        <div class="refill-dot">📦</div>
+        <div class="refill-line"></div>
+        <div class="refill-dot">🚚</div>
+        <div class="refill-line"></div>
+        <div class="refill-dot">✅</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section" id="categories">
+  <div class="section-head">
+    <div class="eyebrow">Shop by category</div>
+    <h2>Everything your routine needs, in one place</h2>
+  </div>
+  <div class="cat-tiles">
+    <a href="supplements.html" class="cat-tile">
+      <div class="cat-tile-icon" style="background:var(--cat-supp-soft)">🌿</div>
+      <h4>Supplements</h4>
+      <p>Vitamins & wellness</p>
+    </a>
+    <a href="skincare.html" class="cat-tile">
+      <div class="cat-tile-icon" style="background:var(--cat-skin-soft)">✨</div>
+      <h4>Skincare</h4>
+      <p>Glow & protect</p>
+    </a>
+    <a href="haircare.html" class="cat-tile">
+      <div class="cat-tile-icon" style="background:var(--cat-hair-soft)">💆</div>
+      <h4>Hair Care</h4>
+      <p>Strength & growth</p>
+    </a>
+    <a href="baby.html" class="cat-tile">
+      <div class="cat-tile-icon" style="background:var(--cat-baby-soft)">👶</div>
+      <h4>Baby & Mother</h4>
+      <p>Safe, trusted care</p>
+    </a>
+    <a href="mens.html" class="cat-tile">
+      <div class="cat-tile-icon" style="background:var(--cat-mens-soft)">💪</div>
+      <h4>Men's Health</h4>
+      <p>Vitality & grooming</p>
+    </a>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="benefit">
+    <span class="benefit-icon">✅</span>
+    <h4>100% Genuine</h4>
+    <p>Sourced directly from certified distributors. No fakes, no risk.</p>
+  </div>
+  <div class="benefit">
+    <span class="benefit-icon">🚚</span>
+    <h4>Fast Delivery</h4>
+    <p>Same-day within Ibadan. Next-day to Lagos, Abuja, and major cities.</p>
+  </div>
+  <div class="benefit">
+    <span class="benefit-icon">💬</span>
+    <h4>Real Support</h4>
+    <p>Questions about your routine? Reach us directly on WhatsApp.</p>
+  </div>
+  <div class="benefit">
+    <span class="benefit-icon">🔄</span>
+    <h4>Auto-Refill</h4>
+    <p>Never run out of what your routine depends on.</p>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>Ready to build your routine?</h2>
+    <p>Create an account to save your cart, track orders, and check out faster next time.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="login.html" class="btn btn-gold btn-lg">Get Started →</a>
+    <a href="https://wa.me/2348143794903?text=Hello%20AkaceMed,%20I%20have%20a%20question" target="_blank" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.4);color:#fff;">💬 WhatsApp Us</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="home.html" class="logo">AkaceMed</a>
+      <p>Nigeria's trusted partner for chronic care, supplements, and skincare. Genuine products, fast delivery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="supplements.html">Supplements</a>
+      <a href="skincare.html">Skincare</a>
+      <a href="haircare.html">Hair Care</a>
+      <a href="baby.html">Baby & Mother</a>
+      <a href="mens.html">Men's Health</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:+2348143794903">📞 0814-379-4903</a>
+      <a href="mailto:care@akacemed.com">✉ care@akacemed.com</a>
+      <a href="https://wa.me/2348143794903">💬 WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">NAFDAC License</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 AkaceMed. All rights reserved.</p>
+    <p>Licensed by NAFDAC & PCN</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+</body>
+</html>

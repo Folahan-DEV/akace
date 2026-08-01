@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chronic Care Medicines — AkaceMed</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="home.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="medicines.html" class="nav-link active">Medicines</a>
+    <a href="supplements.html" class="nav-link">Supplements</a>
+    <a href="skincare.html" class="nav-link">Skincare</a>
+    <a href="haircare.html" class="nav-link">Hair Care</a>
+    <a href="baby.html" class="nav-link">Baby & Mother</a>
+    <a href="mens.html" class="nav-link">Men's Health</a>
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge" style="display:none">0</span></div>
+    <a href="login.html" class="nav-link" id="authLink">Sign in</a>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout →</button>
+    <p class="cart-foot-note">Secure payment via Paystack</p>
+  </div>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-eyebrow">🩺 Chronic Care Medicines</div>
+  <h1>Prescription medicines for long-term conditions.</h1>
+  <p>Genuine, pharmacist-dispensed medicines for hypertension, diabetes, asthma, and epilepsy — available on auto-refill so you never miss a dose.</p>
+</section>
+
+<div class="cat-tabs" id="catTabs">
+  <div class="cat-tab active" data-filter="all">All Medicines</div>
+  <div class="cat-tab" data-filter="hypertension">❤️ Hypertension</div>
+  <div class="cat-tab" data-filter="diabetes">🩸 Diabetes</div>
+  <div class="cat-tab" data-filter="asthma">🫁 Asthma</div>
+  <div class="cat-tab" data-filter="epilepsy">🧠 Epilepsy</div>
+</div>
+
+<div class="prod-grid" id="grid-medicines"></div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="home.html" class="logo">AkaceMed</a>
+      <p>Nigeria's trusted partner for chronic care, supplements, and skincare. Genuine products, fast delivery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="medicines.html">Chronic Care Medicines</a>
+      <a href="supplements.html">Supplements</a>
+      <a href="skincare.html">Skincare</a>
+      <a href="haircare.html">Hair Care</a>
+      <a href="baby.html">Baby & Mother</a>
+      <a href="mens.html">Men's Health</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:+2348143794903">📞 0814-379-4903</a>
+      <a href="mailto:care@akacemed.com">✉ care@akacemed.com</a>
+      <a href="https://wa.me/2348143794903">💬 WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">NAFDAC License</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 AkaceMed. All rights reserved.</p>
+    <p>Licensed by NAFDAC & PCN</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  renderProductGrid("all", "grid-medicines");
+
+  document.querySelectorAll("#catTabs .cat-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll("#catTabs .cat-tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      renderProductGrid(tab.dataset.filter, "grid-medicines");
+    });
+  });
+</script>
+</body>
+</html>

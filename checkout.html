@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — AkaceMed</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+  .checkout-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 24px 100px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 30px;
+    align-items: start;
+  }
+  .checkout-head { grid-column: 1 / -1; margin-bottom: 6px; }
+  .checkout-head .eyebrow {
+    font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+  }
+  .checkout-head h1 { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; }
+
+  .panel {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+  }
+  .panel h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .co-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .co-item:last-child { border-bottom: none; }
+  .co-item img { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; background: var(--bg); }
+  .co-item-name { font-weight: 700; font-size: 0.9rem; }
+  .co-item-qty { font-size: 0.76rem; color: var(--gray); }
+  .co-item-price { margin-left: auto; font-weight: 800; font-size: 0.9rem; }
+
+  .co-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.88rem; margin-bottom: 10px; color: var(--gray);
+  }
+  .co-row.total {
+    font-weight: 800; font-size: 1.1rem; color: var(--ink);
+    border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px;
+  }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 6px; }
+  .field input, .field textarea {
+    width: 100%; padding: 11px 13px; border-radius: 10px;
+    border: 1.5px solid var(--line); font-family: inherit; font-size: 0.88rem;
+    background: var(--bg);
+  }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--brand); background: #fff; }
+
+  .pay-btn {
+    width: 100%; padding: 14px; border-radius: 12px; border: none;
+    background: var(--brand); color: #fff; font-family: var(--font-display);
+    font-weight: 800; font-size: 1rem; margin-top: 10px;
+  }
+  .pay-note { text-align: center; font-size: 0.75rem; color: var(--gray); margin-top: 10px; }
+  .pay-note a { color: var(--blue); font-weight: 700; }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .empty-state span { font-size: 2.6rem; display: block; margin-bottom: 14px; }
+  .empty-state h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+  .empty-state p { color: var(--gray); margin-bottom: 20px; }
+
+  .success-modal-overlay {
+    position: fixed; inset: 0; background: rgba(21,65,58,0.45);
+    display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+  }
+  .success-modal-overlay.open { display: flex; }
+  .success-modal {
+    background: #fff; border-radius: 24px; padding: 44px 36px; text-align: center; max-width: 380px;
+    box-shadow: var(--shadow-lg);
+  }
+  .success-modal .icon {
+    width: 70px; height: 70px; border-radius: 50%; background: var(--brand-soft);
+    color: var(--brand); font-size: 2rem; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+  .success-modal h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+  .success-modal p { color: var(--gray); font-size: 0.88rem; margin-bottom: 22px; }
+
+  @media (max-width: 760px) {
+    .checkout-wrap { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="home.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="medicines.html" class="nav-link">Medicines</a>
+    <a href="supplements.html" class="nav-link">Supplements</a>
+    <a href="skincare.html" class="nav-link">Skincare</a>
+    <a href="haircare.html" class="nav-link">Hair Care</a>
+    <a href="baby.html" class="nav-link">Baby & Mother</a>
+    <a href="mens.html" class="nav-link">Men's Health</a>
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge" style="display:none">0</span></div>
+    <a href="login.html" class="nav-link" id="authLink">Sign in</a>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout →</button>
+    <p class="cart-foot-note">Secure payment via Paystack</p>
+  </div>
+</div>
+
+<div class="checkout-wrap" id="checkoutWrap">
+  <div class="checkout-head">
+    <div class="eyebrow">Almost there</div>
+    <h1>Checkout</h1>
+  </div>
+
+  <div id="checkoutContent"></div>
+</div>
+
+<div class="success-modal-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="icon">🎉</div>
+    <h3>Payment successful!</h3>
+    <p>Your order is confirmed. We'll send delivery updates by SMS and WhatsApp.</p>
+    <a href="home.html" class="btn btn-brand" style="width:100%;">Back to Home</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  const session = getSession();
+  if (!session) {
+    window.location.href = "login.html?redirect=checkout";
+  }
+
+  const DELIVERY_FEE = 1200;
+
+  function renderCheckout() {
+    const wrap = document.getElementById("checkoutContent");
+    if (cart.length === 0) {
+      wrap.innerHTML = `
+        <div class="empty-state">
+          <span>🛒</span>
+          <h3>Your cart is empty</h3>
+          <p>Add a few products before checking out.</p>
+          <a href="supplements.html" class="btn btn-brand">Shop Products →</a>
+        </div>`;
+      return;
+    }
+
+    const subtotal = getCartTotal();
+    const total = subtotal + DELIVERY_FEE;
+
+    wrap.innerHTML = `
+      <div class="panel">
+        <h3>Order Summary</h3>
+        ${cart
+          .map(
+            (i) => `
+          <div class="co-item">
+            <img src="${resolveProductImage(i)}" alt="${i.name}" />
+            <div>
+              <div class="co-item-name">${i.name}</div>
+              <div class="co-item-qty">Qty ${i.qty}</div>
+            </div>
+            <div class="co-item-price">₦${(i.price * i.qty).toLocaleString()}</div>
+          </div>`,
+          )
+          .join("")}
+      </div>
+
+      <div>
+        <div class="panel" style="margin-bottom:20px;">
+          <h3>Delivery Details</h3>
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" id="coName" value="${session ? session.name : ""}" />
+          </div>
+          <div class="field">
+            <label>Phone number</label>
+            <input type="tel" id="coPhone" value="${session ? session.phone : ""}" />
+          </div>
+          <div class="field">
+            <label>Delivery address</label>
+            <textarea id="coAddress" rows="3" placeholder="Street, city, state"></textarea>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Total</h3>
+          <div class="co-row"><span>Subtotal</span><span>₦${subtotal.toLocaleString()}</span></div>
+          <div class="co-row"><span>Delivery fee</span><span>₦${DELIVERY_FEE.toLocaleString()}</span></div>
+          <div class="co-row total"><span>Total</span><span>₦${total.toLocaleString()}</span></div>
+          <button class="pay-btn" onclick="payWithPaystack(${total})">💳 Pay ₦${total.toLocaleString()} with Paystack</button>
+          <p class="pay-note">Or <a href="#" onclick="payViaWhatsApp(${total});return false;">pay via WhatsApp</a></p>
+        </div>
+      </div>
+    `;
+  }
+  renderCheckout();
+
+  function getDeliveryInfo() {
+    return {
+      name: document.getElementById("coName")?.value.trim() || session?.name || "Guest",
+      phone: document.getElementById("coPhone")?.value.trim() || session?.phone || "",
+      address: document.getElementById("coAddress")?.value.trim() || "",
+    };
+  }
+
+  function buildOrderMessage(total) {
+    const info = getDeliveryInfo();
+    return encodeURIComponent(
+      `🛒 NEW ORDER — AkaceMed\n\nCustomer: ${info.name}\nPhone: ${info.phone}\nAddress: ${info.address}\n\n` +
+        cart.map((i) => `• ${i.name} ×${i.qty} = ₦${(i.price * i.qty).toLocaleString()}`).join("\n") +
+        `\n\nTotal: ₦${total.toLocaleString()}\nPlease send payment details.`,
+    );
+  }
+
+  function payViaWhatsApp(total) {
+    const info = getDeliveryInfo();
+    if (!info.address) {
+      showToast("⚠️ Please enter your delivery address first");
+      return;
+    }
+    window.open(`https://wa.me/2348143794903?text=${buildOrderMessage(total)}`, "_blank");
+  }
+
+  // ── PAYSTACK (ready to activate — replace the key below) ──
+  function payWithPaystack(total) {
+    const info = getDeliveryInfo();
+    if (!info.address) {
+      showToast("⚠️ Please enter your delivery address first");
+      return;
+    }
+
+    const PAYSTACK_KEY = "pk_test_REPLACE_WITH_YOUR_KEY";
+
+    if (PAYSTACK_KEY === "pk_test_REPLACE_WITH_YOUR_KEY") {
+      window.open(`https://wa.me/2348143794903?text=${buildOrderMessage(total)}`, "_blank");
+      showToast("Order sent to WhatsApp — payment details coming!");
+      return;
+    }
+
+    const handler = PaystackPop.setup({
+      key: PAYSTACK_KEY,
+      email: `${info.phone}@akacemed.ng`,
+      amount: total * 100,
+      currency: "NGN",
+      ref: "AKM-" + Date.now(),
+      metadata: {
+        custom_fields: [
+          { display_name: "Customer Name", variable_name: "customer_name", value: info.name },
+          { display_name: "Delivery Address", variable_name: "address", value: info.address },
+        ],
+      },
+      callback: function (response) {
+        // Payment confirmed — clear the cart back to zero
+        resetCart();
+        document.getElementById("successOverlay").classList.add("open");
+        const waMsg = encodeURIComponent(
+          `✅ PAYMENT CONFIRMED\nRef: ${response.reference}\nCustomer: ${info.name}\nTotal: ₦${total.toLocaleString()}`,
+        );
+        setTimeout(() => window.open(`https://wa.me/2348143794903?text=${waMsg}`, "_blank"), 800);
+      },
+      onClose: function () {
+        showToast("Payment cancelled — your cart is still saved.");
+      },
+    });
+    handler.openIframe();
+  }
+</script>
+</body>
+</html>

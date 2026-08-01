@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — AkaceMed</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  .auth-wrap {
+    min-height: calc(100vh - 74px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background:
+      radial-gradient(circle at 15% 20%, var(--brand-soft) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, var(--gold-soft) 0%, transparent 45%);
+  }
+
+  .flip-scene {
+    width: 420px;
+    max-width: 100%;
+    perspective: 1600px;
+  }
+
+  .flip-card {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 40px 34px;
+    display: flex;
+    flex-direction: column;
+  }
+  .flip-face.back {
+    transform: rotateY(180deg);
+  }
+
+  .auth-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--brand-dark);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .auth-tagline {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 26px;
+  }
+  .flip-face h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .flip-face .sub {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 22px;
+  }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .field input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: var(--bg);
+  }
+  .field input:focus {
+    outline: none;
+    border-color: var(--brand);
+    background: #fff;
+  }
+  .field-error {
+    font-size: 0.72rem;
+    color: var(--red);
+    margin-top: 5px;
+    min-height: 14px;
+  }
+
+  .auth-submit {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.98rem;
+    margin-top: 6px;
+  }
+  .auth-switch {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-top: 20px;
+  }
+  .auth-switch button {
+    background: none;
+    border: none;
+    color: var(--brand);
+    font-weight: 700;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .form-body { flex: 1; }
+
+  /* Success overlay shown inside the back face after registration */
+  .success-view {
+    position: absolute;
+    inset: 0;
+    background: var(--card);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .success-view.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .success-check {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: var(--brand-soft);
+    color: var(--brand);
+    font-size: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    animation: pop 0.5s cubic-bezier(0.3, 1.5, 0.4, 1);
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+  .success-view h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .success-view p {
+    color: var(--gray);
+    font-size: 0.88rem;
+  }
+
+  .back-home {
+    text-align: center;
+    margin-top: 18px;
+  }
+  .back-home a { font-size: 0.8rem; color: var(--gray); }
+  .back-home a:hover { color: var(--brand); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="home.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="medicines.html" class="nav-link">Medicines</a>
+    <a href="supplements.html" class="nav-link">Supplements</a>
+    <a href="skincare.html" class="nav-link">Skincare</a>
+    <a href="haircare.html" class="nav-link">Hair Care</a>
+    <a href="baby.html" class="nav-link">Baby & Mother</a>
+    <a href="mens.html" class="nav-link">Men's Health</a>
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge" style="display:none">0</span></div>
+    <a href="login.html" class="nav-link active" id="authLink">Sign in</a>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Proceed to Checkout →</button>
+    <p class="cart-foot-note">Secure payment via Paystack</p>
+  </div>
+</div>
+
+<div class="auth-wrap">
+  <div class="flip-scene">
+    <div class="flip-card" id="flipCard">
+
+      <!-- FRONT — LOGIN -->
+      <div class="flip-face front">
+        <div class="auth-logo">AkaceMed</div>
+        <div class="auth-tagline">Chronic care, delivered.</div>
+        <div class="form-body">
+          <h2>Welcome back</h2>
+          <p class="sub">Sign in to continue your routine.</p>
+          <form id="loginForm" onsubmit="return false;">
+            <div class="field">
+              <label>Phone number</label>
+              <input type="tel" id="loginPhone" placeholder="080X XXX XXXX" />
+              <div class="field-error" id="loginPhoneErr"></div>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="loginPassword" placeholder="••••••••" />
+              <div class="field-error" id="loginPassErr"></div>
+            </div>
+            <button class="auth-submit" onclick="handleLogin()">Sign In →</button>
+          </form>
+        </div>
+        <div class="auth-switch">
+          New to AkaceMed? <button onclick="flipTo(true)">Create an account</button>
+        </div>
+      </div>
+
+      <!-- BACK — REGISTER -->
+      <div class="flip-face back">
+        <div class="auth-logo">AkaceMed</div>
+        <div class="auth-tagline">Chronic care, delivered.</div>
+        <div class="form-body">
+          <h2>Create your account</h2>
+          <p class="sub">Takes less than a minute.</p>
+          <form id="registerForm" onsubmit="return false;">
+            <div class="field">
+              <label>Full name</label>
+              <input type="text" id="regName" placeholder="Adaeze Okafor" />
+              <div class="field-error" id="regNameErr"></div>
+            </div>
+            <div class="field">
+              <label>Phone number</label>
+              <input type="tel" id="regPhone" placeholder="080X XXX XXXX" />
+              <div class="field-error" id="regPhoneErr"></div>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="regPassword" placeholder="Minimum 6 characters" />
+              <div class="field-error" id="regPassErr"></div>
+            </div>
+            <button class="auth-submit" onclick="handleRegister()">Create Account →</button>
+          </form>
+        </div>
+        <div class="auth-switch">
+          Already have an account? <button onclick="flipTo(false)">Sign in</button>
+        </div>
+
+        <div class="success-view" id="successView">
+          <div class="success-check">✓</div>
+          <h3>Welcome, <span id="successName">there</span>!</h3>
+          <p>Your account is ready. Taking you to AkaceMed…</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="back-home"><a href="home.html">← Back to home without signing in</a></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+  const flipCard = document.getElementById("flipCard");
+
+  function flipTo(showRegister) {
+    flipCard.classList.toggle("flipped", showRegister);
+  }
+
+  // If arriving with ?mode=register, start flipped
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("mode") === "register") flipTo(true);
+
+  function getAccounts() {
+    return JSON.parse(localStorage.getItem("akacemed_accounts") || "[]");
+  }
+  function saveAccounts(list) {
+    localStorage.setItem("akacemed_accounts", JSON.stringify(list));
+  }
+  function isValidPhone(phone) {
+    return /^0\d{10}$/.test(phone.replace(/\s+/g, ""));
+  }
+
+  function redirectAfterAuth() {
+    const redirect = params.get("redirect");
+    setTimeout(() => {
+      window.location.href = redirect === "checkout" ? "checkout.html" : "home.html";
+    }, 1600);
+  }
+
+  function handleLogin() {
+    const phone = document.getElementById("loginPhone").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    document.getElementById("loginPhoneErr").textContent = "";
+    document.getElementById("loginPassErr").textContent = "";
+
+    if (!isValidPhone(phone)) {
+      document.getElementById("loginPhoneErr").textContent = "Enter a valid 11-digit phone number";
+      return;
+    }
+    if (!password) {
+      document.getElementById("loginPassErr").textContent = "Enter your password";
+      return;
+    }
+
+    const accounts = getAccounts();
+    const match = accounts.find((a) => a.phone === phone && a.password === password);
+    if (!match) {
+      document.getElementById("loginPassErr").textContent = "Phone or password is incorrect";
+      return;
+    }
+
+    localStorage.setItem("akacemed_session", JSON.stringify({ name: match.name, phone: match.phone }));
+    showToast(`Welcome back, ${match.name.split(" ")[0]}!`);
+    setTimeout(() => {
+      const redirect = params.get("redirect");
+      window.location.href = redirect === "checkout" ? "checkout.html" : "home.html";
+    }, 700);
+  }
+
+  function handleRegister() {
+    const name = document.getElementById("regName").value.trim();
+    const phone = document.getElementById("regPhone").value.trim();
+    const password = document.getElementById("regPassword").value;
+    document.getElementById("regNameErr").textContent = "";
+    document.getElementById("regPhoneErr").textContent = "";
+    document.getElementById("regPassErr").textContent = "";
+
+    let hasError = false;
+    if (name.length < 2) {
+      document.getElementById("regNameErr").textContent = "Enter your full name";
+      hasError = true;
+    }
+    if (!isValidPhone(phone)) {
+      document.getElementById("regPhoneErr").textContent = "Enter a valid 11-digit phone number";
+      hasError = true;
+    }
+    if (password.length < 6) {
+      document.getElementById("regPassErr").textContent = "Password must be at least 6 characters";
+      hasError = true;
+    }
+    if (hasError) return;
+
+    const accounts = getAccounts();
+    if (accounts.some((a) => a.phone === phone)) {
+      document.getElementById("regPhoneErr").textContent = "An account with this phone already exists";
+      return;
+    }
+
+    accounts.push({ name, phone, password });
+    saveAccounts(accounts);
+    localStorage.setItem("akacemed_session", JSON.stringify({ name, phone }));
+
+    document.getElementById("successName").textContent = name.split(" ")[0];
+    document.getElementById("successView").classList.add("show");
+    redirectAfterAuth();
+  }
+</script>
+</body>
+</html>

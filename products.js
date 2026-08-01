@@ -1,0 +1,607 @@
+// ===================================================================
+// AKACEMED — PRODUCT DATA
+// Add new products anywhere in this array. Each needs a UNIQUE id.
+// Leave "image" as "" until you have a real photo — the emoji `icon`
+// is shown automatically as a placeholder until then.
+// ===================================================================
+
+const products = [
+  // ── SUPPLEMENTS & VITAMINS ──
+  {
+    id: 101,
+    icon: "🍊",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Vitamin C 1000mg",
+    desc: "High-strength immune booster with antioxidant properties. 60 tablets.",
+    price: 3500,
+    oldPrice: 4200,
+    badge: "hot",
+    image: "",
+  },
+  {
+    id: 102,
+    icon: "☀️",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Vitamin D3 5000IU",
+    desc: "Essential for bone health, immunity, and mood. 90 softgels.",
+    price: 4800,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 103,
+    icon: "🐟",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Omega-3 Fish Oil",
+    desc: "Heart, brain, and joint support. 1000mg EPA/DHA. 60 capsules.",
+    price: 5200,
+    oldPrice: 6500,
+    badge: "sale",
+    image: "",
+  },
+  {
+    id: 104,
+    icon: "🔋",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Multivitamin Complete",
+    desc: "Daily all-in-one vitamin & mineral formula for men and women. 30 tablets.",
+    price: 3800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 105,
+    icon: "🦴",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Calcium + Magnesium",
+    desc: "Bone strength and muscle function support. 60 tablets.",
+    price: 3200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 106,
+    icon: "🧠",
+    cat: "supplements",
+    catClass: "supp",
+    name: "B-Complex",
+    desc: "Full spectrum B vitamins for energy and nerve health. 30 tablets.",
+    price: 2800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 107,
+    icon: "🌸",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Folic Acid 5mg",
+    desc: "Essential for women of childbearing age. Supports neural development. 90 tablets.",
+    price: 1800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 108,
+    icon: "💤",
+    cat: "supplements",
+    catClass: "supp",
+    name: "Magnesium Glycinate",
+    desc: "Promotes deep sleep, muscle recovery, and stress relief. 60 capsules.",
+    price: 5500,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+
+  // ── SKINCARE ──
+  {
+    id: 201,
+    icon: "✨",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Kojic Acid Brightening Soap",
+    desc: "Fades dark spots and evens skin tone. Dermatologist recommended. 100g.",
+    price: 2500,
+    oldPrice: 3000,
+    badge: "hot",
+    image: "",
+  },
+  {
+    id: 202,
+    icon: "💧",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Hyaluronic Acid Serum",
+    desc: "Deep hydration and plumping effect. Suitable for all skin types. 30ml.",
+    price: 6800,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 203,
+    icon: "🌞",
+    cat: "skincare",
+    catClass: "skin",
+    name: "SPF 50 Sunscreen",
+    desc: "Broad spectrum UVA/UVB protection. Non-greasy formula. 60ml.",
+    price: 4200,
+    oldPrice: 5000,
+    badge: "sale",
+    image: "",
+  },
+  {
+    id: 204,
+    icon: "🍯",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Shea Butter Moisturiser",
+    desc: "Rich, non-greasy body butter for deeply dry skin. 200ml.",
+    price: 3500,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 205,
+    icon: "🌹",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Retinol Night Cream",
+    desc: "Anti-ageing cream with retinol and peptides. Use at night. 50ml.",
+    price: 7500,
+    oldPrice: 9000,
+    badge: "hot",
+    image: "",
+  },
+  {
+    id: 206,
+    icon: "🧴",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Niacinamide 10% Toner",
+    desc: "Minimises pores, controls oil, and brightens skin. 100ml.",
+    price: 4500,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 207,
+    icon: "🧴",
+    cat: "skincare",
+    catClass: "skin",
+    name: "Niacinamide 10% Toner",
+    desc: "Minimises pores, controls oil, and brightens skin. 100ml.",
+    price: 5500,
+    oldPrice: null,
+    badge: "new",
+    image: "images/skincare/cream.jpg",
+  },
+
+  // ── HAIR CARE ──
+  {
+    id: 301,
+    icon: "💆",
+    cat: "haircare",
+    catClass: "hair",
+    name: "Biotin Hair Growth Gummies",
+    desc: "Biotin + zinc for thicker, faster-growing hair. 60 gummies.",
+    price: 5800,
+    oldPrice: 7000,
+    badge: "hot",
+    image: "",
+  },
+  {
+    id: 302,
+    icon: "🌴",
+    cat: "haircare",
+    catClass: "hair",
+    name: "Coconut Oil Hair Mask",
+    desc: "Deep conditioning treatment for dry, brittle hair. 300ml.",
+    price: 2800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 303,
+    icon: "🌿",
+    cat: "haircare",
+    catClass: "hair",
+    name: "Rosemary Scalp Serum",
+    desc: "Stimulates hair follicles and reduces hair loss. 50ml.",
+    price: 4200,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 304,
+    icon: "💪",
+    cat: "haircare",
+    catClass: "hair",
+    name: "Keratin Treatment Shampoo",
+    desc: "Strengthens and smooths frizzy hair. Sulphate-free. 400ml.",
+    price: 3500,
+    oldPrice: 4200,
+    badge: "sale",
+    image: "",
+  },
+
+  // ── BABY & MOTHER ──
+  {
+    id: 401,
+    icon: "👶",
+    cat: "baby",
+    catClass: "baby",
+    name: "Baby Vitamin D Drops",
+    desc: "Essential vitamin D for newborns and infants. 400IU per drop. 50ml.",
+    price: 4500,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 402,
+    icon: "🤱",
+    cat: "baby",
+    catClass: "baby",
+    name: "Postnatal Multivitamin",
+    desc: "Complete nutrition for breastfeeding mothers. 30 tablets.",
+    price: 6500,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 403,
+    icon: "🍼",
+    cat: "baby",
+    catClass: "baby",
+    name: "Gripe Water",
+    desc: "Gentle relief for infant colic, gas, and hiccups. 150ml.",
+    price: 1800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 404,
+    icon: "🌸",
+    cat: "baby",
+    catClass: "baby",
+    name: "Prenatal Folic + Iron",
+    desc: "Essential pregnancy supplement for mum and baby. 90 tablets.",
+    price: 5200,
+    oldPrice: 6000,
+    badge: "hot",
+    image: "",
+  },
+
+  // ── MEN'S HEALTH ──
+  {
+    id: 501,
+    icon: "💪",
+    cat: "mens",
+    catClass: "mens",
+    name: "Zinc + Selenium",
+    desc: "Supports testosterone levels, immunity, and sperm health. 60 tablets.",
+    price: 3800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+  {
+    id: 502,
+    icon: "⚡",
+    cat: "mens",
+    catClass: "mens",
+    name: "Men's Performance Multivitamin",
+    desc: "Energy, focus, and vitality formula for active men. 30 tablets.",
+    price: 5500,
+    oldPrice: 6500,
+    badge: "hot",
+    image: "",
+  },
+  {
+    id: 503,
+    icon: "🧴",
+    cat: "mens",
+    catClass: "mens",
+    name: "Men's Face Wash",
+    desc: "Deep cleansing charcoal face wash for oily and combination skin. 150ml.",
+    price: 2800,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+  },
+  {
+    id: 504,
+    icon: "🌿",
+    cat: "mens",
+    catClass: "mens",
+    name: "Saw Palmetto 320mg",
+    desc: "Prostate health and DHT blocker. Supports hair retention. 60 capsules.",
+    price: 7200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+  },
+
+  // ── HYPERTENSION ──
+  {
+    id: 601,
+    icon: "❤️",
+    cat: "hypertension",
+    catClass: "hyper",
+    name: "Amlodipine 5mg",
+    desc: "Calcium channel blocker for high blood pressure. 30 tablets.",
+    price: 2400,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 602,
+    icon: "❤️",
+    cat: "hypertension",
+    catClass: "hyper",
+    name: "Lisinopril 10mg",
+    desc: "ACE inhibitor for hypertension and heart protection. 28 tablets.",
+    price: 2800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 603,
+    icon: "❤️",
+    cat: "hypertension",
+    catClass: "hyper",
+    name: "Losartan 50mg",
+    desc: "ARB for blood pressure control. Kidney-protective. 30 tablets.",
+    price: 3200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 604,
+    icon: "❤️",
+    cat: "hypertension",
+    catClass: "hyper",
+    name: "Atenolol 50mg",
+    desc: "Beta-blocker for hypertension and chest pain. 28 tablets.",
+    price: 1800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+
+  // ── DIABETES ──
+  {
+    id: 605,
+    icon: "🩸",
+    cat: "diabetes",
+    catClass: "diabetes",
+    name: "Metformin 500mg",
+    desc: "First-line type 2 diabetes medication. 60 tablets.",
+    price: 3200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 606,
+    icon: "🩸",
+    cat: "diabetes",
+    catClass: "diabetes",
+    name: "Glibenclamide 5mg",
+    desc: "Stimulates insulin release in type 2 diabetes. 28 tablets.",
+    price: 1600,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 607,
+    icon: "🩸",
+    cat: "diabetes",
+    catClass: "diabetes",
+    name: "Glucometer Test Strips",
+    desc: "Blood glucose monitoring strips. Compatible with major brands. 50 strips.",
+    price: 5500,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: false,
+  },
+  {
+    id: 608,
+    icon: "🩸",
+    cat: "diabetes",
+    catClass: "diabetes",
+    name: "Insulin Glargine (Lantus)",
+    desc: "Long-acting insulin for type 1 & 2 diabetes. 1 vial.",
+    price: 18000,
+    oldPrice: null,
+    badge: "hot",
+    image: "",
+    rx: true,
+  },
+
+  // ── ASTHMA ──
+  {
+    id: 609,
+    icon: "🫁",
+    cat: "asthma",
+    catClass: "asthma",
+    name: "Salbutamol Inhaler 100mcg",
+    desc: "Fast-acting reliever for acute asthma attacks. 200 doses.",
+    price: 4500,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 610,
+    icon: "🫁",
+    cat: "asthma",
+    catClass: "asthma",
+    name: "Budesonide Inhaler 200mcg",
+    desc: "Preventer inhaler for long-term asthma control. 200 doses.",
+    price: 8500,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 611,
+    icon: "🫁",
+    cat: "asthma",
+    catClass: "asthma",
+    name: "Ipratropium Bromide",
+    desc: "Bronchodilator for COPD and asthma. 200-dose inhaler.",
+    price: 6200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+
+  // ── EPILEPSY ──
+  {
+    id: 612,
+    icon: "🧠",
+    cat: "epilepsy",
+    catClass: "epilepsy",
+    name: "Carbamazepine 200mg",
+    desc: "Anti-epileptic for generalised and partial seizures. 100 tablets.",
+    price: 4200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 613,
+    icon: "🧠",
+    cat: "epilepsy",
+    catClass: "epilepsy",
+    name: "Sodium Valproate 200mg",
+    desc: "For generalised epilepsy and bipolar disorder. 100 tablets.",
+    price: 5800,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 614,
+    icon: "🧠",
+    cat: "epilepsy",
+    catClass: "epilepsy",
+    name: "Phenobarbitone 30mg",
+    desc: "First-generation anti-epileptic for tonic-clonic seizures. 100 tablets.",
+    price: 2200,
+    oldPrice: null,
+    badge: null,
+    image: "",
+    rx: true,
+  },
+  {
+    id: 615,
+    icon: "🧠",
+    cat: "epilepsy",
+    catClass: "epilepsy",
+    name: "Levetiracetam 500mg",
+    desc: "Modern anti-epileptic with fewer side effects. 60 tablets.",
+    price: 9500,
+    oldPrice: null,
+    badge: "new",
+    image: "",
+    rx: true,
+  },
+];
+
+// ── IMAGE RESOLUTION ──
+// If a real "image" path is set, use it. Otherwise fall back to a
+// generated emoji badge so the grid never shows a broken image.
+function buildFallbackImage(icon, cat) {
+  const bg =
+    {
+      supplements: "#e7f1ee",
+      skincare: "#fdece3",
+      haircare: "#efe9f7",
+      baby: "#e8f1f9",
+      mens: "#ececec",
+      hypertension: "#fceceb",
+      diabetes: "#fdece3",
+      asthma: "#e8f1f9",
+      epilepsy: "#efe9f7",
+    }[cat] || "#f4f4f4";
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+      <rect width="160" height="160" rx="32" fill="${bg}" />
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60">${icon || "🧴"}</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function resolveProductImage(product) {
+  if (product && product.image && product.image.trim() !== "") {
+    return product.image;
+  }
+  return buildFallbackImage(product?.icon, product?.cat);
+}
+
+// ── RENDER A CATEGORY GRID (used by each category page) ──
+function renderProductGrid(catKey, gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  const items =
+    catKey === "all"
+      ? products.filter((p) => p.rx !== undefined)
+      : products.filter((p) => p.cat === catKey);
+  grid.innerHTML = items
+    .map(
+      (p) => `
+    <div class="prod-card ${p.catClass}">
+      ${p.rx !== undefined ? `<div class="${p.rx ? "rx-badge" : "otc-badge"}">${p.rx ? "Rx REQUIRED" : "OTC"}</div>` : p.badge ? `<div class="prod-badge badge-${p.badge}">${p.badge.toUpperCase()}</div>` : ""}
+      <div class="prod-icon"><img src="${resolveProductImage(p)}" alt="${p.name}" /></div>
+      <div class="prod-cat ${p.catClass}">${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-desc">${p.desc}</div>
+      <div class="prod-footer">
+        <div class="prod-price-wrap">
+          <div class="prod-price">₦${p.price.toLocaleString()}</div>
+          ${p.oldPrice ? `<span class="prod-old-price">₦${p.oldPrice.toLocaleString()}</span>` : ""}
+        </div>
+        <button class="add-btn" id="btn-${p.id}" onclick="addToCart(${p.id}, event)">🛒 Add</button>
+      </div>
+    </div>`,
+    )
+    .join("");
+}
