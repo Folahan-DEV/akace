@@ -317,7 +317,7 @@
   function redirectAfterAuth() {
     const redirect = params.get("redirect");
     setTimeout(() => {
-      window.location.href = redirect === "checkout" ? "checkout.html" : "home.html";
+      window.location.href = redirect === "checkout" ? "checkout.html" : "index.html";
     }, 1600);
   }
 
@@ -347,7 +347,7 @@
     showToast(`Welcome back, ${match.name.split(" ")[0]}!`);
     setTimeout(() => {
       const redirect = params.get("redirect");
-      window.location.href = redirect === "checkout" ? "checkout.html" : "home.html";
+      window.location.href = redirect === "checkout" ? "checkout.html" : "index.html";
     }, 700);
   }
 
