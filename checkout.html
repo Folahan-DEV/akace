@@ -109,9 +109,9 @@
 <body>
 
 <nav>
-  <a href="index.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
+  <a href="home.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
   <div class="nav-links">
-    <a href="index.html" class="nav-link">Home</a>
+    <a href="home.html" class="nav-link">Home</a>
     <a href="medicines.html" class="nav-link">Medicines</a>
     <a href="supplements.html" class="nav-link">Supplements</a>
     <a href="skincare.html" class="nav-link">Skincare</a>
@@ -148,7 +148,7 @@
     <div class="icon">🎉</div>
     <h3>Payment successful!</h3>
     <p>Your order is confirmed. We'll send delivery updates by SMS and WhatsApp.</p>
-    <a href="index.html" class="btn btn-brand" style="width:100%;">Back to Home</a>
+    <a href="home.html" class="btn btn-brand" style="width:100%;">Back to Home</a>
   </div>
 </div>
 
@@ -290,7 +290,7 @@
     }
   }
 
-  // ── PAYSTACK (ready to activate — replace the key below) ──
+  // ── PAYSTACK ──
   function payWithPaystack(total) {
     const info = getDeliveryInfo();
     if (!info.address) {
@@ -299,12 +299,6 @@
     }
 
     const PAYSTACK_KEY = "pk_test_9c038a70008bc05e737de14a598cfbccd783a75d";
-
-    if (PAYSTACK_KEY === "pk_test_9c038a70008bc05e737de14a598cfbccd783a75d") {
-      window.open(`https://wa.me/2348143794903?text=${buildOrderMessage(total)}`, "_blank");
-      showToast("Order sent to WhatsApp — payment details coming!");
-      return;
-    }
 
     const handler = PaystackPop.setup({
       key: PAYSTACK_KEY,
