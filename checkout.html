@@ -298,16 +298,16 @@
       return;
     }
 
-    const PAYSTACK_KEY = "sk_test_4186a247095baa9b02b5d0ffcc15002b0be8f11f";
+    const PAYSTACK_KEY = "pk_test_9c038a70008bc05e737de14a598cfbccd783a75d";
 
-    if (PAYSTACK_KEY === "sk_test_4186a247095baa9b02b5d0ffcc15002b0be8f11f") {
+    if (PAYSTACK_KEY === "pk_test_9c038a70008bc05e737de14a598cfbccd783a75d") {
       window.open(`https://wa.me/2348143794903?text=${buildOrderMessage(total)}`, "_blank");
       showToast("Order sent to WhatsApp — payment details coming!");
       return;
     }
 
     const handler = PaystackPop.setup({
-      key: sk_test_4186a247095baa9b02b5d0ffcc15002b0be8f11f,
+      key: PAYSTACK_KEY,
       email: `${info.phone}@akacemed.ng`,
       amount: total * 100,
       currency: "NGN",
