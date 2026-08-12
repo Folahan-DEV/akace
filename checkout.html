@@ -330,30 +330,33 @@
           { display_name: "Delivery Address", variable_name: "address", value: info.address },
         ],
       },
-      callback: async function (response) {
+      callback: function (response) {
         // Payment confirmed by Paystack — now confirm the order actually saved
         // to your backend (which itself re-verifies the payment server-side).
-        const result = await saveOrderToBackend(response, info, total);
+        // NOTE: this must stay a regular (non-async) function — Paystack's
+        // inline.js rejects async functions here with "Attribute callback
+        // must be a valid function", so we use .then() instead of await.
+        saveOrderToBackend(response, info, total).then((result) => {
+          // Clear the cart either way — the payment itself already succeeded.
+          resetCart();
  
-        // Clear the cart either way — the payment itself already succeeded.
-        resetCart();
- 
-        if (result.ok) {
-          document.getElementById("successOverlay").classList.add("open");
-          const waMsg = encodeURIComponent(
-            `✅ PAYMENT CONFIRMED\nOrder: ${result.orderNumber}\nRef: ${response.reference}\nCustomer: ${info.name}\nTotal: ₦${total.toLocaleString()}`,
-          );
-          setTimeout(() => window.open(`https://wa.me/2348143794903?text=${waMsg}`, "_blank"), 800);
-        } else {
-          // Payment succeeded but the order wasn't confirmed — don't let this
-          // fail silently. Show the customer exactly what to do next.
-          document.getElementById("warningRef").textContent = `Reference: ${response.reference}`;
-          const waMsg = encodeURIComponent(
-            `⚠️ PAYMENT MADE BUT ORDER NOT CONFIRMED\nRef: ${response.reference}\nCustomer: ${info.name}\nPhone: ${info.phone}\nAddress: ${info.address}\nTotal: ₦${total.toLocaleString()}\n\nPlease confirm my order manually.`,
-          );
-          document.getElementById("warningWhatsAppBtn").href = `https://wa.me/2348143794903?text=${waMsg}`;
-          document.getElementById("warningOverlay").classList.add("open");
-        }
+          if (result.ok) {
+            document.getElementById("successOverlay").classList.add("open");
+            const waMsg = encodeURIComponent(
+              `✅ PAYMENT CONFIRMED\nOrder: ${result.orderNumber}\nRef: ${response.reference}\nCustomer: ${info.name}\nTotal: ₦${total.toLocaleString()}`,
+            );
+            setTimeout(() => window.open(`https://wa.me/2348143794903?text=${waMsg}`, "_blank"), 800);
+          } else {
+            // Payment succeeded but the order wasn't confirmed — don't let this
+            // fail silently. Show the customer exactly what to do next.
+            document.getElementById("warningRef").textContent = `Reference: ${response.reference}`;
+            const waMsg = encodeURIComponent(
+              `⚠️ PAYMENT MADE BUT ORDER NOT CONFIRMED\nRef: ${response.reference}\nCustomer: ${info.name}\nPhone: ${info.phone}\nAddress: ${info.address}\nTotal: ₦${total.toLocaleString()}\n\nPlease confirm my order manually.`,
+            );
+            document.getElementById("warningWhatsAppBtn").href = `https://wa.me/2348143794903?text=${waMsg}`;
+            document.getElementById("warningOverlay").classList.add("open");
+          }
+        });
       },
       onClose: function () {
         showToast("Payment cancelled — your cart is still saved.");
