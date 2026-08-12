@@ -23,7 +23,7 @@
     text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
   }
   .checkout-head h1 { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; }
-
+ 
   .panel {
     background: var(--card);
     border-radius: 20px;
@@ -35,7 +35,7 @@
     font-size: 1.1rem;
     margin-bottom: 16px;
   }
-
+ 
   .co-item {
     display: flex;
     gap: 14px;
@@ -48,7 +48,7 @@
   .co-item-name { font-weight: 700; font-size: 0.9rem; }
   .co-item-qty { font-size: 0.76rem; color: var(--gray); }
   .co-item-price { margin-left: auto; font-weight: 800; font-size: 0.9rem; }
-
+ 
   .co-row {
     display: flex; justify-content: space-between;
     font-size: 0.88rem; margin-bottom: 10px; color: var(--gray);
@@ -57,7 +57,7 @@
     font-weight: 800; font-size: 1.1rem; color: var(--ink);
     border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px;
   }
-
+ 
   .field { margin-bottom: 14px; }
   .field label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 6px; }
   .field input, .field textarea {
@@ -66,7 +66,7 @@
     background: var(--bg);
   }
   .field input:focus, .field textarea:focus { outline: none; border-color: var(--brand); background: #fff; }
-
+ 
   .pay-btn {
     width: 100%; padding: 14px; border-radius: 12px; border: none;
     background: var(--brand); color: #fff; font-family: var(--font-display);
@@ -74,7 +74,7 @@
   }
   .pay-note { text-align: center; font-size: 0.75rem; color: var(--gray); margin-top: 10px; }
   .pay-note a { color: var(--blue); font-weight: 700; }
-
+ 
   .empty-state {
     grid-column: 1 / -1;
     text-align: center;
@@ -83,7 +83,7 @@
   .empty-state span { font-size: 2.6rem; display: block; margin-bottom: 14px; }
   .empty-state h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
   .empty-state p { color: var(--gray); margin-bottom: 20px; }
-
+ 
   .success-modal-overlay {
     position: fixed; inset: 0; background: rgba(21,65,58,0.45);
     display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
@@ -100,14 +100,14 @@
   }
   .success-modal h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
   .success-modal p { color: var(--gray); font-size: 0.88rem; margin-bottom: 22px; }
-
+ 
   @media (max-width: 760px) {
     .checkout-wrap { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <a href="index.html" class="logo">AkaceMed <span class="logo-tag">CHRONIC CARE</span></a>
   <div class="nav-links">
@@ -122,7 +122,7 @@
     <a href="login.html" class="nav-link" id="authLink">Sign in</a>
   </div>
 </nav>
-
+ 
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
@@ -133,16 +133,16 @@
     <p class="cart-foot-note">Secure payment via Paystack</p>
   </div>
 </div>
-
+ 
 <div class="checkout-wrap" id="checkoutWrap">
   <div class="checkout-head">
     <div class="eyebrow">Almost there</div>
     <h1>Checkout</h1>
   </div>
-
+ 
   <div id="checkoutContent"></div>
 </div>
-
+ 
 <div class="success-modal-overlay" id="successOverlay">
   <div class="success-modal">
     <div class="icon">🎉</div>
@@ -151,9 +151,22 @@
     <a href="index.html" class="btn btn-brand" style="width:100%;">Back to Home</a>
   </div>
 </div>
-
+ 
+<div class="success-modal-overlay" id="warningOverlay">
+  <div class="success-modal">
+    <div class="icon" style="background:#fdecea;color:#c0392b;">⚠️</div>
+    <h3>Payment received — order needs confirming</h3>
+    <p>
+      Your payment went through, but we couldn't automatically confirm your order.
+      Please contact us on WhatsApp with your payment reference so we can process it manually.
+    </p>
+    <p style="font-weight:700; font-size:0.85rem; margin-bottom:16px;" id="warningRef"></p>
+    <a href="#" id="warningWhatsAppBtn" class="btn btn-brand" style="width:100%;" target="_blank">Message Us on WhatsApp</a>
+  </div>
+</div>
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script src="products.js"></script>
 <script src="cart.js"></script>
 <script>
@@ -161,9 +174,9 @@
   if (!session) {
     window.location.href = "login.html?redirect=checkout";
   }
-
+ 
   const DELIVERY_FEE = 1200;
-
+ 
   function renderCheckout() {
     const wrap = document.getElementById("checkoutContent");
     if (cart.length === 0) {
@@ -176,10 +189,10 @@
         </div>`;
       return;
     }
-
+ 
     const subtotal = getCartTotal();
     const total = subtotal + DELIVERY_FEE;
-
+ 
     wrap.innerHTML = `
       <div class="panel">
         <h3>Order Summary</h3>
@@ -197,7 +210,7 @@
           )
           .join("")}
       </div>
-
+ 
       <div>
         <div class="panel" style="margin-bottom:20px;">
           <h3>Delivery Details</h3>
@@ -214,7 +227,7 @@
             <textarea id="coAddress" rows="3" placeholder="Street, city, state"></textarea>
           </div>
         </div>
-
+ 
         <div class="panel">
           <h3>Total</h3>
           <div class="co-row"><span>Subtotal</span><span>₦${subtotal.toLocaleString()}</span></div>
@@ -227,7 +240,7 @@
     `;
   }
   renderCheckout();
-
+ 
   function getDeliveryInfo() {
     return {
       name: document.getElementById("coName")?.value.trim() || session?.name || "Guest",
@@ -235,7 +248,7 @@
       address: document.getElementById("coAddress")?.value.trim() || "",
     };
   }
-
+ 
   function buildOrderMessage(total) {
     const info = getDeliveryInfo();
     return encodeURIComponent(
@@ -244,7 +257,7 @@
         `\n\nTotal: ₦${total.toLocaleString()}\nPlease send payment details.`,
     );
   }
-
+ 
   function payViaWhatsApp(total) {
     const info = getDeliveryInfo();
     if (!info.address) {
@@ -253,11 +266,11 @@
     }
     window.open(`https://wa.me/2348143794903?text=${buildOrderMessage(total)}`, "_blank");
   }
-
+ 
   // ── ORDER TRACKING ──
   // 👇 Replace this with your real Render backend URL (the one your orders.js route lives on)
   const ORDERS_API = "https://akacemed-backend.onrender.com/api/orders";
-
+ 
   async function saveOrderToBackend(paystackResponse, info, total) {
     try {
       const res = await fetch(ORDERS_API, {
@@ -277,19 +290,24 @@
           paystackRef: paystackResponse.reference,
         }),
       });
-
-      if (!res.ok) throw new Error("Order save failed");
-
+ 
       const data = await res.json();
-      console.log("Order saved:", data.order.orderNumber);
+ 
+      if (!res.ok) {
+        // Backend explicitly rejected the order (failed verification, amount
+        // mismatch, duplicate, or unreachable Paystack) — surface this clearly
+        // rather than pretending everything worked.
+        return { ok: false, reason: data.error || "Order could not be confirmed." };
+      }
+ 
+      return { ok: true, orderNumber: data.order.orderNumber };
     } catch (err) {
-      // Payment already succeeded, so we don't block the success screen —
-      // but this error means the order did NOT reach your dashboard.
-      // The WhatsApp confirmation message below is your backup so no order gets lost.
-      console.error("Could not save order to backend:", err);
+      // Network failure reaching our own backend at all
+      console.error("Could not reach backend to save order:", err);
+      return { ok: false, reason: "Could not reach our server." };
     }
   }
-
+ 
   // ── PAYSTACK ──
   function payWithPaystack(total) {
     const info = getDeliveryInfo();
@@ -297,9 +315,9 @@
       showToast("⚠️ Please enter your delivery address first");
       return;
     }
-
+ 
     const PAYSTACK_KEY = "pk_test_9c038a70008bc05e737de14a598cfbccd783a75d";
-
+ 
     const handler = PaystackPop.setup({
       key: PAYSTACK_KEY,
       email: `${info.phone}@akacemed.ng`,
@@ -312,18 +330,30 @@
           { display_name: "Delivery Address", variable_name: "address", value: info.address },
         ],
       },
-      callback: function (response) {
-        // Payment confirmed — save the order to your backend so it shows up
-        // in the admin dashboard for delivery tracking.
-        saveOrderToBackend(response, info, total);
-
-        // Clear the cart back to zero
+      callback: async function (response) {
+        // Payment confirmed by Paystack — now confirm the order actually saved
+        // to your backend (which itself re-verifies the payment server-side).
+        const result = await saveOrderToBackend(response, info, total);
+ 
+        // Clear the cart either way — the payment itself already succeeded.
         resetCart();
-        document.getElementById("successOverlay").classList.add("open");
-        const waMsg = encodeURIComponent(
-          `✅ PAYMENT CONFIRMED\nRef: ${response.reference}\nCustomer: ${info.name}\nTotal: ₦${total.toLocaleString()}`,
-        );
-        setTimeout(() => window.open(`https://wa.me/2348143794903?text=${waMsg}`, "_blank"), 800);
+ 
+        if (result.ok) {
+          document.getElementById("successOverlay").classList.add("open");
+          const waMsg = encodeURIComponent(
+            `✅ PAYMENT CONFIRMED\nOrder: ${result.orderNumber}\nRef: ${response.reference}\nCustomer: ${info.name}\nTotal: ₦${total.toLocaleString()}`,
+          );
+          setTimeout(() => window.open(`https://wa.me/2348143794903?text=${waMsg}`, "_blank"), 800);
+        } else {
+          // Payment succeeded but the order wasn't confirmed — don't let this
+          // fail silently. Show the customer exactly what to do next.
+          document.getElementById("warningRef").textContent = `Reference: ${response.reference}`;
+          const waMsg = encodeURIComponent(
+            `⚠️ PAYMENT MADE BUT ORDER NOT CONFIRMED\nRef: ${response.reference}\nCustomer: ${info.name}\nPhone: ${info.phone}\nAddress: ${info.address}\nTotal: ₦${total.toLocaleString()}\n\nPlease confirm my order manually.`,
+          );
+          document.getElementById("warningWhatsAppBtn").href = `https://wa.me/2348143794903?text=${waMsg}`;
+          document.getElementById("warningOverlay").classList.add("open");
+        }
       },
       onClose: function () {
         showToast("Payment cancelled — your cart is still saved.");
